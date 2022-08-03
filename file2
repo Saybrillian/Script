@@ -1,4 +1,19 @@
 local library = {count = 0, queue = {}, callbacks = {}, rainbowtable = {}, toggled = true, binds = {}};
+local Configurations = {
+   AutoSaveSettings = true
+};
+local HttpService = game:GetService("HttpService");
+local SaveFileName = "UI.Settings";
+
+if not pcall(function()
+   readfile(SaveFileName)
+end) then
+   writefile(SaveFileName, HttpService:JSONEncode(Configurations))
+end
+local Settings = HttpService:JSONDecode(readfile(SaveFileName))
+local function SaveSettings()
+   writefile(SaveFileName, HttpService:JSONEncode(Settings))
+end
 local defaults; do
     local dragger = {}; do
         local mouse        = game:GetService("Players").LocalPlayer:GetMouse();
