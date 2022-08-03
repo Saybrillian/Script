@@ -1,4 +1,17 @@
-local library = loadstring(game:HttpGet('https://pastebin.com/raw/T3tvmaz4'))()
+local library = loadstring(game:HttpGet('https://raw.githubusercontent.com/Saybrillian/Script/main/file2'))()
+--// Start of the UI (Credits to 'wallythebird');
+local Toggles = {};
+local TestWindow = Library:CreateWindow("Test Window");
+TestWindow:Section("Auto-Save Test Window");
+local TestToggle = TestWindow:Toggle("Test Toggle", {location = Toggles, flag = "TestToggle"}, function(Value)
+   Settings.AutoSaveSettings = Value
+   spawn(function()
+       print(Value)
+       if not Toggles.TestToggle then
+           Settings.AutoSaveSettings = false
+       end
+   end)
+end)
 local MainWindow = library:CreateWindow("Farming")
 local EggsWindow = library:CreateWindow("Eggs")
 
@@ -342,5 +355,24 @@ else
         vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
     end)
 end
+
+--// End of the UI;
+--[[--]]--
+--// Start of the Configurations for the UI;
+
+if Settings.AutoSaveSettings == true then
+   TestToggle:Set(true)
+elseif Settings.AutoSaveSettings == false then
+   TestToggle:Set(false)
+end
+
+while Configurations.AutoSaveSettings do
+   wait()
+   SaveSettings()
+end
+
+--// End of the Configurations for the UI;
+--[[--]]--
+--// End of Main Code
 
 warn("Everything has loaded fully. Enjoy :)")
